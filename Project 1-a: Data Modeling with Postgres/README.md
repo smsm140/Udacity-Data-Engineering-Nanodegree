@@ -1,33 +1,32 @@
 # Project 1: Data Modeling with Postgres
 
-### 1. Summary
+## 1. Summary
 
----
-    A startup called Sparkify wants to analyze the data they've been collecting on songs and user activity on their new music streaming app. The analytics team is particularly interested in understanding what songs users are listening to. Currently, they don't have an easy way to query their data, which resides in a directory of JSON logs on user activity on the app, as well as a directory with JSON metadata on the songs in their app.
+A startup called Sparkify wants to analyze the data they've been collecting on songs and user activity on their new music streaming app. The analytics team is particularly interested in understanding what songs users are listening to. Currently, they don't have an easy way to query their data, which resides in a directory of JSON logs on user activity on the app, as well as a directory with JSON metadata on the songs in their app.
 
-- #### Database Schema Design
-    A **star-schema** is used here to model data whitch results in fact and dimension tables.
-    - Fact Table:
-        - songplays
-    - Dimension Tables:
-        - users
-        - songs
-        - artists
-        - time
-- #### ETL Pipeline
-    An ETL pipeline is the process of extracting the needed data, transforming them as needed and loading them to the appropriate table which is implemented in `etl.py` for dimension and fact tables above.
+- Database Schema Design
+  
+  A **star-schema** is used here to model data whitch results in fact and dimension tables.
+  1. Fact Table:
+      - songplays
+  1. Dimension Tables:
+      - users
+      - songs
+      - artists
+      - time
 
-### 2. How to run the python scripts
+- ETL Pipeline
 
----
-Run the following python files on the terminal **respectively**.
+  An ETL pipeline is the process of extracting the needed data, transforming them as needed and loading them to the appropriate table which is implemented in `etl.py` for dimension and fact tables above.
+
+## 2. How to run the python scripts
+
+Run the following python files on the terminal ***respectively***.
+
 1. Run `python create_tables.py` to create database and tables
+1. Run `python etl.py` to perform an ETL pipeline
 
-2. Run `python etl.py` to perform an ETL pipeline
-
-### 3. Files in the repository
-
----
+## 3. Files in the repository
 
 |File Name| Description|
 |---------|------------|
