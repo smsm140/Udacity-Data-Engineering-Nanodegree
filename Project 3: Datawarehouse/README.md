@@ -1,20 +1,16 @@
 # Project 3: Datawarehouse
 
-### 1. Summary
+## 1. Summary
 
----
+A startup called Sparkify has grown their user base and song database and want to move their processes and data onto the cloud. Their data resides in S3, in a directory of JSON logs on user activity on the app, as well as a directory with JSON metadata on the songs in their app.
 
-    A startup called Sparkify has grown their user base and song database and want to move their processes and data onto the cloud. Their data resides in S3, in a directory of JSON logs on user activity on the app, as well as a directory with JSON metadata on the songs in their app.
+The project objective is to build an ETL pipeline that will extracts their data from S3, stages them in Redshift, and transforms data into a set of dimensional tables for their analytics team to continue finding insights in what songs their users are listening to
 
-    The project objective is to build an ETL pipeline that will extracts their data from S3, stages them in Redshift, and transforms data into a set of dimensional tables for their analytics team to continue finding insights in what songs their users are listening to.
-    
-### 2. How to run
+## 2. How to run
 
----
+- You will need to fill the following information, and save it as `dwh.cfg` in the project root folder.
 
-- #### You will need to fill the following information, and save it as `dwh.cfg` in the project root folder.
-
-    <code>
+    ```cfg
     [CLUSTER]
     HOST                   =
     DB_NAME                =dwh
@@ -47,24 +43,22 @@
     
     [REGIONS]
     REGION                 = 
-    </code>
+    ```
 
-- #### Go through the `STEPS` in `create_custer.ipynb` `1` to `4` to create and lunch the cluster.
+- Go through the `STEPS` in `create_custer.ipynb` `1` to `4` to create and lunch the cluster.
 
-- #### Run the terminal and run these scripts:
-    1. `$ python create_tables.py`
-    1. `$ python etl.py`
+- Run the terminal and run these scripts:
+  1. `$ python create_tables.py`
+  1. `$ python etl.py`
 
-- #### Go back to `create_custer.ipynb` going through the last step `STEP 5` to clean up created resources <font color='red'>AFTER YOU'ER DONE FROM EVERYTHING TO PREVENT LOSING MONEY</font>.
+- Go back to `create_custer.ipynb` going through the last step `STEP 5` to clean up created resources ***AFTER YOU'ER DONE FROM EVERYTHING TO PREVENT LOSING MONEY***.
 
-### 3. Database schema design
+## 3. Database schema design
 
----
+- Staging Tables
+  - staging_events
 
-- #### Staging Tables
-    - #### staging_events
-
-    <code>
+    ```sql
     CREATE TABLE staging_events(
         artist              VARCHAR,
         auth                VARCHAR,
@@ -85,11 +79,11 @@
         userAgent           VARCHAR,
         userId              INTEGER 
     )
-    </code>
+    ```
 
-    - #### staging_songs
+  - staging_songs
 
-    <code>
+    ```sql
     CREATE TABLE staging_songs(
         num_songs           INTEGER,
         artist_id           VARCHAR,
@@ -102,12 +96,12 @@
         duration            FLOAT,
         year                INTEGER
     )
-    </code>
+    ```
 
-- #### Fact Table
-    - #### songplays: records in event data associated with song plays i.e. records with page NextSong.
+- Fact Table
+  - songplays: records in event data associated with song plays i.e. records with page NextSong.
 
-    <code>
+    ```sql
     CREATE TABLE songplays(
         songplay_id         INTEGER         IDENTITY(0,1)   PRIMARY KEY,
         start_time          TIMESTAMP,
@@ -119,12 +113,12 @@
         location            VARCHAR,
         user_agent          VARCHAR
     )
-    </code>
+    ```
 
-- #### Dimension Tables
-    - #### users: users in the app.
+- Dimension Tables
+  - users: users in the app.
 
-    <code>
+    ```sql
     CREATE TABLE users(
         user_id             INTEGER PRIMARY KEY,
         first_name          VARCHAR,
@@ -132,11 +126,11 @@
         gender              VARCHAR,
         level               VARCHAR
     )
-    </code>
+    ```
 
-    - #### songs: songs in music database.
+  - songs: songs in music database.
 
-    <code>
+    ```sql
     CREATE TABLE songs(
         song_id             VARCHAR PRIMARY KEY,
         title               VARCHAR,
@@ -144,11 +138,11 @@
         year                INTEGER,
         duration            FLOAT
     )
-    </code>
+    ```
 
-    - #### artists: artists in music database.
+  - artists: artists in music database.
 
-    <code>
+    ```sql
     CREATE TABLE artists(
         artist_id           VARCHAR  PRIMARY KEY,
         name                VARCHAR,
@@ -156,11 +150,11 @@
         latitude            FLOAT,
         longitude           FLOAT
     )
-    </code>
+    ```
 
-    - #### time: timestamps of records in songplays broken down into specific units.
+  - time: timestamps of records in songplays broken down into specific units.
 
-    <code>
+    ```sql
     CREATE TABLE time(
         start_time          TIMESTAMP       NOT NULL PRIMARY KEY,
         hour                INTEGER         NOT NULL,
@@ -170,13 +164,9 @@
         year                INTEGER         NOT NULL,
         weekday             VARCHAR(20)     NOT NULL
     )
-    </code>
+    ```
 
-
-
-### 4. Files in the repository
-
----
+## 4. Files in the repository
 
 |File Name| Description|
 |---------|------------|
